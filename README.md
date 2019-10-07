@@ -148,6 +148,7 @@ and give some options to the datepicker. See [Configuration options](#configurat
 |prevMonthButtonLabel  |Accessibility label : 'aria-labelledby' attribute for the previous year button|Date.dp_locales.texts.prevMonthButtonLabel (*)|prevMonthButtonLabel: "Aller à l'année précédente"|
 |prevYearButtonLabel   |Accessibility label : 'aria-labelledby' attribute for the previous years range button|Date.dp_locales.texts.prevYearButtonLabel (*)|prevYearButtonLabel: "Aller aux vingt années précédentes"|
 |startView             |set the start view mode. Accepts: 'days', 'months', 'years', 0 for days, 1 for months and 2 for years|0|startView: 'years'|
+|selectUnit            |set the unit to be returned. Accepts: 'day', 'month', 'year', 0 for day, 1 for month and 2 for year|0|startUnit: 'month'|
 |theme                 |name of the theme|default|theme: 'green'|
 |titleFormat           |Dates and times are formatted according to [CLDR Date Time patterns](http://cldr.unicode.org/translation/date-time)|Date.dp_locales.full_format (*)|titleFormat: 'EEEE d MMMM y'|
 |weekDayFormat         |Display format of the weekday names<br>- values are 'short' (first letter) or 'narrow' (first two letters)|short|weekDayFormat: 'narrow'|
@@ -247,6 +248,13 @@ show the calendar portion of the datepicker
 $('your date selector').datepicker('startview', view);
 ```
 where view (type: string|int) is the value of new start view: 'days', 'months', 'years', 0 for days, 1 for months and 2 for years
+
+### selectunit
+```javascript
+$('your date selector').datepicker('selectunit', unit);
+```
+where unit (type: string|int) is the value of unit to select: 'day', 'month', 'year', 0 for day, 1 for month and 2 for year
+
 ### theme
 ```javascript
 $('your date selector').datepicker('theme', name);

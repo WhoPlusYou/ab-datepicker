@@ -328,6 +328,7 @@
 		this.options = $.extend({}, Datepicker.DEFAULTS, options)
 		this.locales = Date.dp_locales;
 		this.startview(this.options.startView);
+        this.selectunit(this.options.selectUnit);
 		if (typeof this.options.inputFormat === 'string') {
 			this.options.inputFormat = [this.options.inputFormat];
 		}
@@ -489,6 +490,7 @@
 		firstDayOfWeek: Date.dp_locales.firstday_of_week, // Determines the first column of the calendar grid
 		weekDayFormat: 'short', // Display format of the weekday names - values are 'short' or 'narrow'
 		startView: 0, // Initial calendar - values are 0 or 'days', 1 or 'months', 2 or 'years'
+        selectUnit: 0, // Are we selecting days (0), months (1), or years (2) - years is not implemented yet
 		daysOfWeekDisabled: [],
 		datesDisabled: [],
 		isDateDisabled: null,
@@ -1778,9 +1780,21 @@
 							break;
 						case 1: // months grid
 							this.showDaysOfMonth(parseInt($curCell.attr('data-value'), 10));
+                            if (this.options.selectUnit == 1) {
+                                // We are selecting, just the month, not the day in the month
+                                this.selectGridCell($curCell.attr('id'));
+                                this.update();
+                                this.hide();
+                            }
 							break;
 						case 2: // years grid
 							this.showMonthsOfYear(parseInt($curCell.attr('data-value'), 10));
+                            if (this.options.selectUnit == 2) {
+                                // We are selecting just the year, not the month or the day in the month
+                                this.selectGridCell($curCell.attr('id'));
+                                this.update();
+                                this.hide();
+                            }
 							break;
 					}
 					e.stopPropagation();
@@ -2079,9 +2093,21 @@
 				break;
 			case 1: // months grid
 				this.showDaysOfMonth(parseInt($cell.attr('data-value'), 10));
+                if (this.options.selectUnit == 1) {
+                    // We are selecting, just the month, not the day in the month
+                    this.selectGridCell($cell.attr('id'));
+                    this.update();
+                    this.hide();
+                }
 				break;
 			case 2: // years grid
 				this.showMonthsOfYear(parseInt($cell.attr('data-value'), 10));
+                if (this.options.selectUnit == 2) {
+                    // We are selecting just the year, not the month or the day in the month
+                    this.selectGridCell($cell.attr('id'));
+                    this.update();
+                    this.hide();
+                }
 				break;
 		}
 		e.stopPropagation();
@@ -2208,7 +2234,27 @@
 	 */
 	Datepicker.prototype.update = function() {
 		var $curDay = $('#' + this.$grid.attr('aria-activedescendant'));
-		var date = new Date(this.year, this.month, parseInt($curDay.attr('data-value'), 10));
+        var dayOfMonth;
+        var monthOfYear;
+        switch (this.options.selectUnit) {
+            case 2:
+                // We are selecting years, always pick Jan 1
+                dayOfMonth = 1;
+                monthOfYear = 0; // Jan == 0
+                break;
+            case 1:
+                // We are selecting months, always pick first of the month
+                dayOfMonth = 1;
+                monthOfYear = this.month;
+                break;
+            case 0:
+            default:
+                // We are selecting days
+                dayOfMonth = parseInt($curDay.attr('data-value'), 10);
+                monthOfYear = this.month;
+                break;
+        }
+		var date = new Date(this.year, monthOfYear, dayOfMonth);
 		var val = this.formatDate(date, this.options.outputFormat);
 		this.$target.val(val);
 		this.$target.removeAttr('aria-invalid');
@@ -3191,10 +3237,57 @@
 			case 'years':
 				this.options.startView = 2;
 				break;
+            case 0:
+            case 'days':
+                this.options.startView = 0;
+                break;
 			default:
+                console.warn('datepicker: unknown startView value of "'+view+'" ignored and set to "days".');
 				this.options.startView = 0;
 		}
+        this.checkStartAndSelectChoices();
 	} // end startview()
+
+    /**
+     *  selectunit() is a public member function to set the unit we want to pick, day, month or year.
+     *     if month is chosen, return the 1st of the month.  If year is selected return Jan 1 of the year.
+     *
+     *  @param (value int|string) 0, 1, 2 OR 'day', 'month', 'year' - what we want to pick
+     *  @return  N/A
+     */
+    Datepicker.prototype.selectunit = function(unit) {
+        switch (unit) {
+            case 2:
+            case 'year':
+                this.options.selectUnit = 2;
+                break;
+            case 1:
+            case 'month':
+                this.options.selectUnit = 1;
+                break;
+            case 0:
+            case 'day':
+                this.options.selectUnit = 0;
+                break;
+            default:
+                console.warn('datepicker: unknown selectUnit value of "'+unit+'" ignored and set to "day".');
+                this.options.selectUnit = 0;
+        }
+        this.checkStartAndSelectChoices();
+    } // end selectype()
+
+    Datepicker.prototype.checkStartAndSelectChoices = function () {
+        // Need to ensure that the view we start with is never more "specific"  than the unit we want to select.
+        // For example, we can't say we want to select months, but then start with the days calendar.
+        if (this.options.startView < this.options.selectUnit) {
+            var views = ['days', 'months', 'years'];
+            var units = ['day', 'month', 'year'];
+            var startViewName = views[this.options.startView];
+            var selectUnitName = units[this.options.selectUnit];
+            console.warn('datepicker: startView of "'+startViewName+'" more specific than selectUnit "'+selectUnitName+'". startView forced to "'+views[this.options.selectUnit]+'".');
+            this.options.startView = this.options.selectUnit;
+        }
+    }
 
 	/**
 	 *	setLocales() is a public member function which allow change the locales.
