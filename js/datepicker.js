@@ -68,8 +68,8 @@
 
 (function () {
 	"use strict";
-	if (typeof Date.dp_locales === 'undefined') {
-		Date.dp_locales = {
+	if (typeof Date.dp_locales_en === 'undefined') {
+		Date.dp_locales_en = {
 			"texts": {
 				"buttonTitle": "Select date ...",
 				"buttonLabel": "Click or press the Enter key or the spacebar to open the calendar",
@@ -217,6 +217,7 @@
 			"firstday_of_week": 0
 		};
 	}
+    Date.dp_locales = Date.dp_locales_en;
 })();
 
 (function(factory){
