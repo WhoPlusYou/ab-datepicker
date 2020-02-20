@@ -88,7 +88,7 @@ div.datepicker-calendar:not(.bootstrap4) div.datepicker-month:after {
 	content: "\e252";
 }
 div.datepicker-calendar.bootstrap4 div.datepicker-month:after {
-	font-family: "Font Awesome 5 Free";
+	font-family: "Font Awesome 5 Pro";
 	font-size: 0.7em;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
