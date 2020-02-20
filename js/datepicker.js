@@ -482,7 +482,7 @@
 		});
 	}
 
-	Datepicker.VERSION  = '2.1.19'
+	Datepicker.VERSION  = '2.1.19.2'
 
 	Datepicker.DEFAULTS = {
 		firstDayOfWeek: Date.dp_locales.firstday_of_week, // Determines the first column of the calendar grid
