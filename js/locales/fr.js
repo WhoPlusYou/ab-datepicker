@@ -1,8 +1,8 @@
 (function () {
 	"use strict";
 
-	if (typeof Date.dp_locales === 'undefined') {
-		Date.dp_locales = {
+	if (typeof Date.dp_locales_fr === 'undefined') {
+		Date.dp_locales_fr = {
 		    "texts": {
 		        "buttonTitle": "Sélectionner une date ...",
 		        "buttonLabel": "Cliquez ou appuyez sur la touche Entrée ou la barre d'espace pour ouvrir le calendrier",
