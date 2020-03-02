@@ -370,7 +370,7 @@
 			this.options.next = null;
 		}
 		this.id = this.$target.attr('id') || 'datepicker-' + Math.floor(Math.random() * 100000);
-		var calendar = this.options.markup == 'bootstrap3' ? datepickerCalendar3.join("") : datepickerCalendar4.join("");
+		var calendar = this.options.markup == 'bootstrap4' ? datepickerCalendar4.join("") : datepickerCalendar3.join("");
 		calendar = calendar.replace(/CALENDARID/g, this.id + '');
 
 		// complete the target textbox if any
@@ -386,7 +386,7 @@
 			this.$target.attr('placeholder', this.options.inputFormat[0]);
 		}
 
-		var button = this.options.markup == 'bootstrap3' ? datepickerButton3.join("") : datepickerButton4.join("");
+		var button = this.options.markup == 'bootstrap4' ? datepickerButton4.join("") : datepickerButton3.join("");
 		button = button.replace(/CALENDARID/g, this.id + '');
 		this.$button = $(button);
 		this.$button.addClass(this.options.theme);
@@ -1063,7 +1063,7 @@
 		// if offset was specified, set focus on the first day + specified offset
 		if (offset != null) {
 			var $allCells = this.$grid.find('td');
-			offset--; // offset starts at 1 
+			offset--; // offset starts at 1
 			while (offset < $allCells.length && ! $allCells.eq(offset).hasClass('selectable')) {
 				offset++;
 			}
@@ -1096,7 +1096,7 @@
 		// if offset was specified, set focus on the first month + specified offset
 		if (offset != null) {
 			var $allCells = this.$grid.find('td');
-			offset--; // offset starts at 1 
+			offset--; // offset starts at 1
 			while (offset < $allCells.length && ! $allCells.eq(offset).hasClass('selectable')) {
 				offset++;
 			}
@@ -1129,7 +1129,7 @@
 		// if offset was specified, set focus on the first day + specified offset
 		if (offset != null) {
 			var $allCells = this.$grid.find('td');
-			offset--; // offset starts at 1 
+			offset--; // offset starts at 1
 			while (offset < $allCells.length && ! $allCells.eq(offset).hasClass('selectable')) {
 				offset++;
 			}
