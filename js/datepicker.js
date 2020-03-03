@@ -486,7 +486,7 @@
 
 
 	Datepicker.VERSION  = '2.1.19'
-	Datepicker.WPY_VERSION = '2.1.19.2'
+	Datepicker.WPY_VERSION = '2.1.19.4'
 
 	Datepicker.DEFAULTS = {
 		firstDayOfWeek: Date.dp_locales.firstday_of_week, // Determines the first column of the calendar grid
@@ -2698,7 +2698,11 @@
 		var pos = 0;
 		var now = new Date();
 		var year = now.getYear();
-		var month = now.getMonth() + 1;
+		if (this.options.selectUnit == 2) {
+			var month = 1 // If we are selecting years, clamp month to January
+		} else {
+			var month = now.getMonth() + 1;
+		}
 		var date = 1;
 		var hh = 0;
 		var mm = 0;
