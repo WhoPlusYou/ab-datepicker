@@ -1,7 +1,7 @@
 {
-  "name": "@eureka2/ab-datepicker",
-  "version": "2.1.19",
-  "description": "An accessible and bootstrap compatible datepicker",
+  "name": "@WhoPlusYou/ab-datepicker",
+  "version": "2.1.19.5",
+  "description": "An accessible and bootstrap compatible datepicker (WPY Version)",
   "main": "js/datepicker.js",
   "directories": {
     "test": "tests"
@@ -14,16 +14,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eureka2/ab-datepicker.git"
+    "url": "git+https://github.com/WhoPlusYou/ab-datepicker.git"
   },
   "keywords": [
     "datepicker",
     "accessible"
   ],
   "author": "Jacques Archimède",
+  "contributors": [
+    {
+        "name": "Larry Philps"
+    }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eureka2/ab-datepicker/issues"
+    "url": "https://github.com/WhoPlusYou/ab-datepicker/issues"
   },
-  "homepage": "https://github.com/eureka2/ab-datepicker#readme"
+  "homepage": "https://github.com/WhoPlusYou/ab-datepicker#readme"
 }
