@@ -1010,11 +1010,13 @@
 	 *	@return true if the year - 20 is between the minimum and the maximum date otherwise return false
 	 */
 	Datepicker.prototype.showYearsOfPrevRange = function(offset) {
-		if (this.options.min != null && this.year - 20 < this.options.min.getFullYear()) {
+		var currentEarliestYearShown = Math.floor(this.year / 10) * 10;
+		if (this.options.min != null && currentEarliestYearShown <= this.options.min.getFullYear()) {
 			return false;
 		}
 		// show the previous range
-		this.year -= 20;
+		this.year = currentEarliestYearShown - 20;
+
 		// populate the calendar grid
 		this.populateYearsCalendar();
 
