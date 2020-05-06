@@ -486,7 +486,7 @@
 
 
 	Datepicker.VERSION  = '2.1.19'
-	Datepicker.WPY_VERSION = '2.1.19.5'
+	Datepicker.WPY_VERSION = '2.1.19.6'
 
 	Datepicker.DEFAULTS = {
 		firstDayOfWeek: Date.dp_locales.firstday_of_week, // Determines the first column of the calendar grid
@@ -865,7 +865,7 @@
 		var gridCells = '\t<tr id="row0-'+this.id+'" role="row">\n';
 		// insert the months of the year.
 		for (var curYear = startYear; curYear <= endYear; curYear++) {
-			if (curYear == this.year) {
+			if (curYear == this.year && (this.options.max === null || (curYear <= this.options.max.getFullYear()))) {
 				gridCells += '\t\t<td id="cell' + (curYear - startYear + 1) + '-' + this.id + '" class="year curYear selectable"';
 			} else if (this.options.min != null && (curYear < this.options.min.getFullYear())) {
 				gridCells += '\t\t<td id="cell' + (curYear - startYear + 1) + '-' + this.id + '" class="year unselectable"';
@@ -2245,6 +2245,10 @@
                 // We are selecting years, always pick Jan 1
                 dayOfMonth = 1;
                 monthOfYear = 0; // Jan == 0
+                if (this.options.max != null && (this.year > this.options.max.getFullYear())) {
+                    this.curYear = this.options.max.getFullYear();
+                    this.year = this.curYear;
+                }
                 break;
             case 1:
                 // We are selecting months, always pick first of the month
