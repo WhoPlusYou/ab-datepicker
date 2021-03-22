@@ -486,7 +486,7 @@
 
 
 	Datepicker.VERSION  = '2.1.20'
-	Datepicker.WPY_VERSION = '2.1.20'
+	Datepicker.WPY_VERSION = '2.1.20.1'
 
 	Datepicker.DEFAULTS = {
 		firstDayOfWeek: Date.dp_locales.firstday_of_week, // Determines the first column of the calendar grid
