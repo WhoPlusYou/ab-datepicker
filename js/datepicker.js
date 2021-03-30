@@ -1,5 +1,5 @@
 /*!
- * Accessible Datepicker v2.1.19
+ * Accessible Datepicker v2.1.20
  * Copyright 2015-2019 Eureka2, Jacques Archimède.
  * Based on the example of the Open AJAX Alliance Accessibility Tools Task Force : http://www.oaa-accessibility.org/examplep/datepicker1/
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -332,7 +332,7 @@
 		if (typeof this.options.inputFormat === 'string') {
 			this.options.inputFormat = [this.options.inputFormat];
 		}
-		if (! $.isArray(this.options.datesDisabled)) {
+		if (! Array.isArray(this.options.datesDisabled)) {
 			this.options.datesDisabled = [this.options.datesDisabled];
 		}
 		$.each(this.options.datesDisabled, function(i, v) {
@@ -456,7 +456,7 @@
 		};
 
 		this.bindHandlers();
-		this.$button.click(function(e) {
+		this.$button.on('click', function(e) {
 			if (!$(this).hasClass('disabled')) {
 				if (self.$calendar.attr('aria-hidden') === 'true') {
 					self.initializeDate();
@@ -469,7 +469,7 @@
 			e.stopPropagation();
 			return false;
 		});
-		this.$button.keydown(function(e) {
+		this.$button.on('keydown', function(e) {
 			var ev = e || event;
 			if(ev.keyCode == self.keys.enter || ev.keyCode == self.keys.space) {
 				$(this).trigger('click');
@@ -485,8 +485,8 @@
 	}
 
 
-	Datepicker.VERSION  = '2.1.19'
-	Datepicker.WPY_VERSION = '2.1.19.6'
+	Datepicker.VERSION  = '2.1.20'
+	Datepicker.WPY_VERSION = '2.1.20'
 
 	Datepicker.DEFAULTS = {
 		firstDayOfWeek: Date.dp_locales.firstday_of_week, // Determines the first column of the calendar grid
@@ -1065,7 +1065,7 @@
 		// if offset was specified, set focus on the first day + specified offset
 		if (offset != null) {
 			var $allCells = this.$grid.find('td');
-			offset--; // offset starts at 1 
+			offset--; // offset starts at 1
 			while (offset < $allCells.length && ! $allCells.eq(offset).hasClass('selectable')) {
 				offset++;
 			}
@@ -1098,7 +1098,7 @@
 		// if offset was specified, set focus on the first month + specified offset
 		if (offset != null) {
 			var $allCells = this.$grid.find('td');
-			offset--; // offset starts at 1 
+			offset--; // offset starts at 1
 			while (offset < $allCells.length && ! $allCells.eq(offset).hasClass('selectable')) {
 				offset++;
 			}
@@ -1131,7 +1131,7 @@
 		// if offset was specified, set focus on the first day + specified offset
 		if (offset != null) {
 			var $allCells = this.$grid.find('td');
-			offset--; // offset starts at 1 
+			offset--; // offset starts at 1
 			while (offset < $allCells.length && ! $allCells.eq(offset).hasClass('selectable')) {
 				offset++;
 			}
@@ -1191,64 +1191,64 @@
 		var self = this;
 
 		// bind button handlers
-		this.$fastprev.click(function(e) {
+		this.$fastprev.on('click', function(e) {
 			return self.handleFastPrevClick(e);
 		});
-		this.$prev.click(function(e) {
+		this.$prev.on('click', function(e) {
 			return self.handlePrevClick(e);
 		});
-		this.$next.click(function(e) {
+		this.$next.on('click', function(e) {
 			return self.handleNextClick(e);
 		});
-		this.$fastnext.click(function(e) {
+		this.$fastnext.on('click', function(e) {
 			return self.handleFastNextClick(e);
 		});
-		this.$monthObj.click(function(e) {
+		this.$monthObj.on('click', function(e) {
 			return self.handleMonthClick(e);
 		});
-		this.$monthObj.keydown(function(e) {
+		this.$monthObj.on('keydown', function(e) {
 			return self.handleMonthKeyDown(e);
 		});
-		this.$fastprev.keydown(function(e) {
+		this.$fastprev.on('keydown', function(e) {
 			return self.handleFastPrevKeyDown(e);
 		});
-		this.$prev.keydown(function(e) {
+		this.$prev.on('keydown', function(e) {
 			return self.handlePrevKeyDown(e);
 		});
-		this.$next.keydown(function(e) {
+		this.$next.on('keydown', function(e) {
 			return self.handleNextKeyDown(e);
 		});
-		this.$fastnext.keydown(function(e) {
+		this.$fastnext.on('keydown', function(e) {
 			return self.handleFastNextKeyDown(e);
 		});
 		if (this.options.modal == true) {
-			this.$close.click(function(e) {
+			this.$close.on('click', function(e) {
 				return self.handleCloseClick(e);
 			});
-			this.$close.keydown(function(e) {
+			this.$close.on('keydown', function(e) {
 				return self.handleCloseKeyDown(e);
 			});
 		}
 
 		// bind grid handlers
-		this.$grid.keydown(function(e) {
+		this.$grid.on('keydown', function(e) {
 			return self.handleGridKeyDown(e);
 		});
-		this.$grid.keypress(function(e) {
+		this.$grid.on('keypress', function(e) {
 			return self.handleGridKeyPress(e);
 		});
-		this.$grid.focus(function(e) {
+		this.$grid.on('focus', function(e) {
 			return self.handleGridFocus(e);
 		});
-		this.$grid.blur(function(e) {
+		this.$grid.on('blur', function(e) {
 			return self.handleGridBlur(e);
 		});
-		this.$grid.delegate('td', 'click', function(e) {
+		this.$grid.on('click', 'td', function(e) {
 			return self.handleGridClick(this, e);
 		});
 
 		// bind target handlers
-		this.$target.change(function(e) {
+		this.$target.on('change', function(e) {
 			var date = self.parseDate($(this).val());
 			self.updateLinked(date);
 		});
@@ -1443,9 +1443,9 @@
 						return true;
 					}
 					if (e.shiftKey) {
-						this.$close.focus();
+						this.$close.trigger('focus');
 					} else {
-						this.$prev.focus();
+						this.$prev.trigger('focus');
 					}
 					e.stopPropagation();
 					return false;
@@ -1491,12 +1491,12 @@
 					}
 					if (e.shiftKey) {
 						if (this.gridType == 0) {
-							this.$fastprev.focus();
+							this.$fastprev.trigger('focus');
 						} else {
-							this.$close.focus();
+							this.$close.trigger('focus');
 						}
 					} else {
-						this.$monthObj.focus();
+						this.$monthObj.trigger('focus');
 					}
 					e.stopPropagation();
 					return false;
@@ -1555,9 +1555,9 @@
 						return true;
 					}
 					if (e.shiftKey) {
-						this.$prev.focus();
+						this.$prev.trigger('focus');
 					} else {
-						this.$next.focus();
+						this.$next.trigger('focus');
 					}
 					e.stopPropagation();
 					return false;
@@ -1602,9 +1602,9 @@
 						this.$monthObj.focus();
 					} else {
 						if (this.gridType == 0) {
-							this.$fastnext.focus();
+							this.$fastnext.trigger('focus');
 						} else {
-							this.$grid.focus();
+							this.$grid.trigger('focus');
 						}
 					}
 					e.stopPropagation();
@@ -1660,9 +1660,9 @@
 						return true;
 					}
 					if (e.shiftKey) {
-						this.$next.focus();
+						this.$next.trigger('focus');
 					} else {
-						this.$grid.focus();
+						this.$grid.trigger('focus');
 					}
 					e.stopPropagation();
 					return false;
@@ -1706,9 +1706,9 @@
 						this.$grid.focus();
 					} else {
 						if (this.gridType == 0) {
-							this.$fastprev.focus();
+							this.$fastprev.trigger('focus');
 						} else {
-							this.$prev.focus();
+							this.$prev.trigger('focus');
 						}
 					}
 					e.stopPropagation();
@@ -1751,12 +1751,12 @@
 					if (this.options.modal == true) {
 						if (e.shiftKey) {
 							if (this.gridType == 0) {
-								this.$fastnext.focus();
+								this.$fastnext.trigger('focus');
 							} else {
-								this.$next.focus();
+								this.$next.trigger('focus');
 							}
 						} else {
-							this.$close.focus();
+							this.$close.trigger('focus');
 						}
 						e.stopPropagation()
 						return false;
@@ -2476,7 +2476,7 @@
 			$('.datepicker-calendar').trigger('ab.datepicker.closed', [self.id]);
 			// set focus on the focus target
 			if (!omitSettingFocus) {
-				this.$target.focus();
+				this.$target.trigger('focus');
 			}
 		}
 	} // end hide()
@@ -3054,7 +3054,7 @@
 	Datepicker.prototype.daysOfWeekDisabled = function(value) {
 		if (value != null) {
 			this.options.daysOfWeekDisabled = [];
-			if (! $.isArray(value)) {
+			if (! Array.isArray(value)) {
 				value = [value];
 			}
 			var self = this;
@@ -3091,7 +3091,7 @@
 	 */
 	Datepicker.prototype.inputFormat = function(value) {
 		if (value != null) {
-			if (! $.isArray(value)) {
+			if (! Array.isArray(value)) {
 				value = [value];
 			}
 			if (this.$target.attr('placeholder') == this.options.inputFormat[0]) {
@@ -3133,10 +3133,10 @@
 				this.$close.html(this.options.closeButtonTitle).attr('title', this.options.closeButtonLabel);
 				this.$calendar.find('.datepicker-bn-close-label').html(this.options.closeButtonLabel);
 				var self = this;
-				this.$close.click(function(e) {
+				this.$close.on('click', function(e) {
 					return self.handleCloseClick(e);
 				});
-				this.$close.keydown(function(e) {
+				this.$close.on('keydown', function(e) {
 					return self.handleCloseKeyDown(e);
 				});
 			} else {
@@ -3217,7 +3217,7 @@
 	 */
 	Datepicker.prototype.datesDisabled = function(dates) {
 		this.options.datesDisabled = [];
-		if (! $.isArray(dates)) {
+		if (! Array.isArray(dates)) {
 			dates = [dates];
 		}
 		var self = this;
