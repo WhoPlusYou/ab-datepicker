@@ -279,17 +279,17 @@
 	];
 
 	var datepickerButton4 = [
-		'<a class="datepicker-button bootstrap4 input-group-append" role="button" aria-haspopup="true" tabindex="0" aria-labelledby="datepicker-bn-open-label-CALENDARID">',
-		'	<span class="input-group-text"><i class="far fa-calendar-alt" title="Select Date..."></i></span>',
+		'<a class="datepicker-button bootstrap4 input-group-prepend" role="button" aria-haspopup="true" tabindex="0" aria-labelledby="datepicker-bn-open-label-CALENDARID">',
+		'	<span class="input-group-text"><svg width="22" height="21" viewBox="0 0 22 21" xmlns="http://www.w3.org/2000/svg"><title>Select Date...</title><path d="M1.87 1.74h18.26c.48 0 .87.388.87.869V19.13c0 .48-.39.87-.87.87H1.87a.87.87 0 01-.87-.87V2.61c0-.48.39-.87.87-.87zM5.348 0v4.348M16.652 0v4.348M1 6.087h20m-10 0V20M5.783 6.087V20M16.217 6.087V20M1 13.043h20M1 9.565h20M1 16.522h20" stroke="#666666" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/></svg></span>',
 		'</a>'
 	];
 	var datepickerCalendar4 = [
 		'<div class="datepicker-calendar bootstrap4" id="datepicker-calendar-CALENDARID" aria-hidden="false">',
 		'	<div class="datepicker-month-wrap">',
-		'		<div class="datepicker-button datepicker-month-fast-next float-right" role="button" aria-labelledby="datepicker-bn-fast-next-label-CALENDARID" tabindex="0"><i class="fas fa-forward"></i></div>',
-		'		<div class="datepicker-button datepicker-month-next float-right" role="button" aria-labelledby="datepicker-bn-next-label-CALENDARID" tabindex="0"><i class="fas fa-caret-right"></i></div>',
-		'		<div class="datepicker-button datepicker-month-fast-prev float-left" role="button" aria-labelledby="datepicker-bn-fast-prev-label-CALENDARID" tabindex="0"><i class="fas fa-backward"></i></div>',
-		'		<div class="datepicker-button datepicker-month-prev float-left" role="button" aria-labelledby="datepicker-bn-prev-label-CALENDARID" tabindex="0"><i class="fas fa-caret-left"></i></div>',
+		'		<div class="datepicker-button datepicker-month-fast-next float-right" role="button" aria-labelledby="datepicker-bn-fast-next-label-CALENDARID" tabindex="0"><i class="fal fa-chevron-double-right"></i></div>',
+		'		<div class="datepicker-button datepicker-month-next float-right" role="button" aria-labelledby="datepicker-bn-next-label-CALENDARID" tabindex="0"><i class="fal fa-chevron-right"></i></div>',
+		'		<div class="datepicker-button datepicker-month-fast-prev float-left" role="button" aria-labelledby="datepicker-bn-fast-prev-label-CALENDARID" tabindex="0"><i class="fal fa-chevron-double-left"></i></div>',
+		'		<div class="datepicker-button datepicker-month-prev float-left" role="button" aria-labelledby="datepicker-bn-prev-label-CALENDARID" tabindex="0"><i class="fal fa-chevron-left"></i></div>',
 		'		<div id="datepicker-month-CALENDARID" class="datepicker-button datepicker-month" tabindex="0" role="heading" aria-live="assertive" aria-atomic="true" title="Click or press the Enter key or the spacebar to change the month">July 2015</div>',
 		'	</div>',
 		'	<table class="datepicker-grid" role="grid" aria-readonly="true" aria-activedescendant="datepicker-err-msg-CALENDARID" aria-labelledby="datepicker-month-CALENDARID" tabindex="0">',
@@ -375,7 +375,7 @@
 
 		// complete the target textbox if any
 		if (this.$target.parent('.input-group').length == 0) {
-			this.$target.wrap( '<div class="input-group"></div>' );
+			this.$target.wrap( '<div class="input-group input-group-flush"></div>' );
 		}
 		this.$group = this.$target.parent('.input-group');
 		this.$target.attr('aria-autocomplete', 'none');
@@ -486,7 +486,7 @@
 
 
 	Datepicker.VERSION  = '2.1.20'
-	Datepicker.WPY_VERSION = '2.1.20'
+	Datepicker.WPY_VERSION = '2.1.20.1'
 
 	Datepicker.DEFAULTS = {
 		firstDayOfWeek: Date.dp_locales.firstday_of_week, // Determines the first column of the calendar grid
@@ -3161,7 +3161,7 @@
 				this.hideObject(this.$calendar.find('.datepicker-bn-close-label'));
 				var $container = typeof value === 'string' ? $('#' + value) : value;
 				$container.append(this.$calendar);
-				this.$calendar.css({position: 'relative', left: '0px', top: '0px'});
+				this.$calendar.css({position: 'relative', left: '0px', top: '0px', 'z-index': unset});
 				this.options.inline = value;
 				this.initializeDate();
 				this.showObject(this.$calendar);
